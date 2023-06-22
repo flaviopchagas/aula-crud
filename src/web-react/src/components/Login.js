@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import "./style.css";
+import fetch from 'fetch'
+
 
 
 export default function Login() {
+  
   const [login, setLogin] = React.useState("");
   const [password, setPassword] = React.useState("");
 
@@ -10,6 +13,17 @@ export default function Login() {
     if (localStorage.getItem("logado"))
       window.location.href = '/'
   }, [])
+
+  useEffect (() =>{
+    fetch("localhost:3000")
+    .then ((res)=> res.json())
+    .then (
+        (res)=>{
+          set.Login(res)
+        }
+        )
+      }
+  )
 
   const handleChange = (e) => {
     let value = e.target[e.target.type === "checkbox" ? "checked" : "value"];
@@ -21,11 +35,9 @@ export default function Login() {
     setPassword(value)
   }
 
-  const ricardoLogar = () => {
+  const ricardoLogar = (useEffect) => {
 
-    //result = post(login,senha)
-    //resulto===ok
-
+   
     if (login === "ricardo" && password === "12345") {
       localStorage.setItem("logado", true)
       window.location.href = '/'
@@ -34,6 +46,27 @@ export default function Login() {
       window.alert("Usuario invalido")
     }
   }
+
+  /*const fetchUserData = () =>{
+    fetch("localhost:3000")
+    .then (res)=>res.json())
+    .then (
+        (res)=>{
+          set.ricardoLogar(res)
+        }
+        )
+      }
+
+
+      }
+    )
+    usuarios =>{
+      return usuarios.j.son()
+    })
+    .then(data => {
+      setUsers(data)
+    })
+  }*/
 
   return (
     
@@ -52,3 +85,4 @@ export default function Login() {
     
   );
 }
+
